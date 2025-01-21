@@ -1,2 +1,3 @@
-# LPython
-Scripts used during learning Python
+# RechnungPython
+The script "rechnungErstellen" creates an invoice with given "Verkaeufen.xlsx" File.
+
