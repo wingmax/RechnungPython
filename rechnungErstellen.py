@@ -22,6 +22,7 @@ for i in range(nData):
                      Product,
                        Zusatzinfo,
                        Anzahl,
+                       Einheit,
                        Preis,
                        Kaufsdatum,
                        Lieferungsdatum,
@@ -99,30 +100,39 @@ for i in range(nData):
     products = []
     additionalInfos = []
     amounts = []
+    unit =[]
     prices = []
+
     products.append(Product) 
     additionalInfos.append(Zusatzinfo) 
     amounts.append(Anzahl)
+    unit.append(Einheit)
     prices.append(Preis)
 
     numberOfProducts = 1
     k=i+1
     
+    total = int(str(Anzahl)) * int(str(Preis)) # Rechnungsbetrag
+
     if fileCSV.shape[0]!=i+1: # if not the last element of CSV is been processing
         while True:
-            if fileCSV.iloc[k,0]!=fileCSV.iloc[i,0]:            
+            if fileCSV.iloc[k,0]!=fileCSV.iloc[i,0]:
+                total = int(str(amounts)) * int(str(prices))
                 break
             else:
                 columnIndex_Product = fileCSV.columns.get_loc("Product")
                 columnIndex_ZusatzInfo = fileCSV.columns.get_loc("Zusatzinfo")
                 columnIndex_Anzahl = fileCSV.columns.get_loc("Anzahl")
+                columnIndex_Einheit = fileCSV.columns.get_loc("Einheit")
                 columnIndex_Preis = fileCSV.columns.get_loc("Preis")
                 
                 products.append(fileCSV.iloc[k,columnIndex_Product])
                 additionalInfos.append(fileCSV.iloc[k,columnIndex_ZusatzInfo])
                 amounts.append(fileCSV.iloc[k,columnIndex_Anzahl])
+                unit.append(fileCSV.iloc[k,columnIndex_Einheit])
                 prices.append(fileCSV.iloc[k,columnIndex_Preis])
             
+                total =+ int(str(amounts(-1))) * int(str(prices(-1)))
                 numberOfProducts = +1
                 k= +1
 
@@ -134,21 +144,28 @@ for i in range(nData):
     tableHeader.append("Menge")
     tableHeader.append("Einheit")
     tableHeader.append("E-Preis")
-    tableHeader.append("Gesamt")
+    
     pos = range(1,numberOfProducts+1)
 
     nRows = len(products)+1
     nColumns = len(tableHeader)
 
-    data = [[0 for _ in range(nColumns)] for _ in range(nRows)]
+    data = [[0 for _ in range(nColumns)] for _ in range(nRows+1)]
     data [0][:] = tableHeader
     #index = numberOfProducts-1
     for i in range(numberOfProducts):
         data [i+1][:] = [pos[i], products[i],
                        additionalInfos[i],
                        amounts[i],
+                        unit[i],
                         prices[i]]
+        if i ==numberOfProducts-1:
+            for j in range(4):
+                data [i+2][j] = []
+            data [i+2][4] = "Rechnungsbetrag"
+            data [i+2][5] = str(total)+ " €"
 
+    
     # Table styling
     colWidths=[10, 50, 50,10,20,100,100]
     table = Table(data, )  # Adjust column widths
@@ -157,10 +174,15 @@ for i in range(nData):
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        #('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        #('GRID', (0, 0), (-1, -1), 1, colors.black),
     ])
     table.setStyle(style)
+    table.setStyle(TableStyle([
+    ('LINEABOVE', (0, -1), (-1, -1), 0, colors.white),  # No top border for last row
+    ('LINEBELOW', (0, -1), (-1, -1), 0, colors.white),  # No bottom border for last row
+    ('GRID', (0, -1), (-1, -1), 0, colors.white),
+    ]))
 
     # Step 3: Place the table below the content
     x = 50  # Starting x-coordinate
@@ -171,6 +193,11 @@ for i in range(nData):
     # Save the final PDF
     pdf.restoreState()
 
+    # Write Rechnungsbetrag:
+    # fontSize = 14
+    # pdf.setFont("CalibriBold", fontSize)
+    # pdf.drawString(100, 300, "Rechnungsbetrag:")
+    # pdf.drawString(130, 400, str(total)+ "€")
 
     # # Inhalt hinzufügen
     # pdf.setFont("Helvetica", 12)
@@ -197,9 +224,9 @@ for i in range(nData):
     pdf.drawString(50, 170, "Ahmet Akkoyunlu")
     pdf.line(50,160,550,160)
     pdf.setFont("Calibri", 10)
-    pdf.drawString(50, 150, "Wingman Electronics 2024")
+    pdf.drawString(50, 150, "Wingman Electronics 2025")
     pdf.drawString(50, 130, "Ahmet Akkoyunlu | Finanzamt Esslingen | Steuernummer: 59003/60964")
-    pdf.drawString(50, 120, "Diese Beleg wurde durch das Automatisierunsprogramm der Wingman Electronics erstellt.")
+    #pdf.drawString(50, 120, "Diese Beleg wurde durch das Automatisierunsprogramm der Wingman Electronics erstellt.")
 
 
     # PDF speichern
