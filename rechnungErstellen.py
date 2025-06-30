@@ -50,7 +50,7 @@ for i in range(nData):
     logoFilePath = os.path.join(current_directory, logo_name)
     pdf.drawImage(logoFilePath, x=55, y=725, width=140, height=45)
     pdf.setFont("Calibri", 7)
-    meinAnschrift = "Wingman Electronics | Riegelstr. 38 | 73760 Ostfildern"
+    meinAnschrift = "Wingman Electronics | Jakob-Sigle-Str 49 | 86842 Türkheim"
     x0 = 58
     y0 = 720
     pdf.drawString(x0, y0, meinAnschrift)
@@ -112,7 +112,7 @@ for i in range(nData):
     numberOfProducts = 1
     k=i+1
     
-    total = int(str(Anzahl)) * int(str(Preis)) # Rechnungsbetrag
+    total = float(str(Anzahl)) * float(str(Preis)) # Rechnungsbetrag
 
     if fileCSV.shape[0]!=i+1: # if not the last element of CSV is been processing
         while True:
@@ -217,6 +217,12 @@ for i in range(nData):
     # pdf.drawString(50, 600, f"Zahlungsmethode: {self.zahlung}")
     # pdf.drawString(50, 580, f"Zahlungsbetrag: {self.betrag} €")
     
+
+    # Ohne Umsatzsteuer
+    pdf.drawString(50, 245, "Rechnungsstellung erfolgt ohne Ausweis der Umsatzsteuer nach §19 UStG.")
+    
+
+
     # Fußzeile
     fontSize = 12
     pdf.setFont("Calibri", fontSize)
@@ -226,6 +232,7 @@ for i in range(nData):
     pdf.setFont("Calibri", 10)
     pdf.drawString(50, 150, "Wingman Electronics 2025")
     pdf.drawString(50, 130, "Ahmet Akkoyunlu | Finanzamt Esslingen | Steuernummer: 59003/60964")
+    # pdf.drawString(50, 120, "USt-IdNr. | DE420650410")
     #pdf.drawString(50, 120, "Diese Beleg wurde durch das Automatisierunsprogramm der Wingman Electronics erstellt.")
 
 
