@@ -70,7 +70,7 @@ for i in range(nData):
     pdf.drawString(x0, y0, "Rechnungsnummer:")
     pdf.drawString(x0, y0-fontSize, "Verkaufsdatum:")
     pdf.drawString(x0, y0-2*fontSize, "Lieferdatum:")
-    pdf.drawString(x0, y0-3*fontSize, "Zahlungsfrist:")
+    pdf.drawString(x0, y0-3*fontSize, "Rechnungsdatum:")
     pdf.drawString(x0, y0-4*fontSize, "Ihr Ansprechpartner:")
 
     # Rechte Spalte- Die Parametern selbst:
@@ -79,9 +79,9 @@ for i in range(nData):
     x0 = 480
     y0 = 705
     pdf.drawString(x0, y0, str(Rechnungsnummer))
-    pdf.drawString(x0, y0-fontSize, Rechnungsdatum)
+    pdf.drawString(x0, y0-fontSize, Kaufsdatum)
     pdf.drawString(x0, y0-2*fontSize, Lieferungsdatum)
-    pdf.drawString(x0, y0-3*fontSize, Lieferungsdatum)
+    pdf.drawString(x0, y0-3*fontSize, Rechnungsdatum)
     pdf.drawString(x0, y0-4*fontSize, "Ahmet Akkoyunlu")   
 
 
