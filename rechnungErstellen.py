@@ -231,7 +231,7 @@ for i in range(nData):
     pdf.line(50,160,550,160)
     pdf.setFont("Calibri", 10)
     pdf.drawString(50, 150, "Wingman Electronics 2025")
-    pdf.drawString(50, 130, "Ahmet Akkoyunlu | Finanzamt Esslingen | Steuernummer: 59003/60964")
+    pdf.drawString(50, 130, "Ahmet Akkoyunlu | Finanzamt Memmingen-Mindelheim | Steuernummer: 138/200/32068")
     # pdf.drawString(50, 120, "USt-IdNr. | DE420650410")
     #pdf.drawString(50, 120, "Diese Beleg wurde durch das Automatisierunsprogramm der Wingman Electronics erstellt.")
 
